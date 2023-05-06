@@ -1,0 +1,40 @@
+{
+  "name": "welbex-blog_server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon server/src/app.js",
+    "prod": "cross-env NODE_ENV=production node server/src/app.js"
+  },
+  "author": "artodoro",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.0",
+    "jsonwebtoken": "^9.0.0",
+    "moment": "^2.29.4",
+    "mysql2": "^3.2.4",
+    "sequelize": "^6.31.1",
+    "tslog": "^4.8.2",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "eslint": "^8.40.0",
+    "nodemon": "^2.0.22",
+    "prettier": "^2.8.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artodoro/welbex-blog.git"
+  },
+  "bugs": {
+    "url": "https://github.com/artodoro/welbex-blog/issues"
+  },
+  "homepage": "https://github.com/artodoro/welbex-blog#readme",
+  "description": ""
+}
