@@ -1,7 +1,6 @@
 import { Post, User } from "../models/models.js";
 import ApiError from "../error/api.error.js";
 import { v4 as uuidv4 } from "uuid";
-("uuid");
 import { resolve } from "path";
 import { __dirname } from "../app.js";
 import log from "../common/logging.js";
@@ -50,7 +49,7 @@ export default class PostController {
 
   static async getAll(req, res) {
     try {
-      const posts = await Post.findAll();
+      const posts = await Post.findAll({ include: User });
       return res.json(posts);
     } catch (error) {
       next(ApiError.badRequest(error.message));
