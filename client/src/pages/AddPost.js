@@ -57,6 +57,7 @@ const AddPost = () => {
           />
           <Form.Control
             type="file"
+            accept="image/*"
             className="d-flex mt-2"
             onChange={(e) => {
               setFile(e.target.files[0]);
