@@ -8,7 +8,7 @@ const sequelize = isProduction
   ? new Sequelize(process.env.DB_LINK, {
       dialect: "postgres",
       protocol: "postgres",
-      dialectOptions: {}, //removed ssl
+      logging: (msg) => log.debug("database", msg),
     })
   : new Sequelize(
       config.get("POSTGRES_DB"),
