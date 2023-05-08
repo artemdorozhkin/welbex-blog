@@ -114,15 +114,6 @@ export default class PostController {
         );
       }
 
-      if (post.file) {
-        fs.rm(resolve(__dirname, "static", post.file), (err) => {
-          if (err) {
-            return log.warn("Ошибка при удалении файла");
-          }
-
-          log.info("Файл успешно удален");
-        });
-      }
       await post.destroy();
       return res.json(post);
     } catch (error) {
