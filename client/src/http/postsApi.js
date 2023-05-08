@@ -1,12 +1,12 @@
 import { $host, $authhost } from ".";
 
-export const getPosts = async () => {
-  const { data } = await $host.get("api/posts");
+export const getPosts = async (page, limit = 5) => {
+  const { data } = await $host.get("api/posts", { params: { page, limit } });
   return data;
 };
 
-export const editPost = async (id, message, file) => {
-  const { data } = await $authhost.put("api/posts", { id, message, file });
+export const editPost = async (post) => {
+  const { data } = await $authhost.put("api/posts", post);
   return data;
 };
 

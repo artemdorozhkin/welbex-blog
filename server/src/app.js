@@ -9,7 +9,8 @@ import errHandler from "./middleware/errorHandling.middleware.js";
 import fileUpload from "express-fileupload";
 import { fileURLToPath } from "url";
 import { dirname, resolve } from "path";
-
+import swaggerDocs from "./docs/swagger.js";
+ 
 const __filename = fileURLToPath(import.meta.url);
 export const __dirname = dirname(__filename);
 
@@ -25,7 +26,10 @@ async function start() {
   app.use(errHandler);
 
   const PORT = config.get("PORT");
-  app.listen(PORT, () => log.info(`server is running on port: ${PORT}`));
+  app.listen(PORT, () => {
+    log.info(`server is running on port: ${PORT}`);
+    swaggerDocs(app, PORT);
+  });
   try {
     await sequelize.sync();
     await sequelize.authenticate();

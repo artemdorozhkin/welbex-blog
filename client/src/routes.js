@@ -4,9 +4,9 @@ import {
   POSTS_ROUTE,
   REGISTRATION_ROUTE,
 } from "./utils/constants";
-import Posts from "./pages/posts.page";
-import Auth from "./pages/auth.page";
-import AddPost from "./pages/addPost.page";
+import Posts from "./pages/Posts";
+import Auth from "./pages/Auth";
+import AddPost from "./pages/AddPost";
 
 export const publicRoutes = [
   {

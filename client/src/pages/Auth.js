@@ -13,8 +13,8 @@ import { Context } from "..";
 const Auth = observer(() => {
   const { user } = useContext(Context);
   const location = useLocation();
-  const navigate = useNavigate();
   const isLogin = location.pathname === LOGIN_ROUTE;
+  const navigate = useNavigate();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [showAllert, setShowAllert] = useState(false);
@@ -32,7 +32,8 @@ const Auth = observer(() => {
       user.setIsAuth(true);
       navigate(POSTS_ROUTE);
     } catch (error) {
-      setAllertText(error.response.data.message)
+      console.log(error);
+      setAllertText(error.response.data.message);
       setShowAllert(true);
       setTimeout(() => {
         setShowAllert(false);

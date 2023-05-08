@@ -1,6 +1,34 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../db.js";
 
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    CreateUserInput:
+ *      type: object
+ *      required:
+ *        - email
+ *        - password
+ *      properties:
+ *        email:
+ *          type: string
+ *        password:
+ *          type: string
+ *    CreateUserResponse:
+ *      type: object
+ *      properties:
+ *        _id:
+ *          type: string
+ *        email:
+ *          type: string
+ *        password:
+ *          type: string
+ *        createdAt:
+ *          type: string
+ *        updatedAt:
+ *          type: string
+ */
 export const User = sequelize.define("user", {
   id: {
     type: DataTypes.INTEGER,
@@ -8,11 +36,6 @@ export const User = sequelize.define("user", {
     unique: true,
     primaryKey: true,
     autoIncrement: true,
-  },
-
-  username: {
-    type: DataTypes.STRING,
-    allowNull: false,
   },
 
   email: {
@@ -27,6 +50,33 @@ export const User = sequelize.define("user", {
   },
 });
 
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    CreatePostInput:
+ *      type: object
+ *      required:
+ *        - message
+ *      properties:
+ *        message:
+ *          type: string
+ *        file:
+ *          type: string
+ *    CreatePostResponse:
+ *      type: object
+ *      properties:
+ *        _id:
+ *          type: string
+ *        message:
+ *          type: string
+ *        file:
+ *          type: string
+ *        createdAt:
+ *          type: string
+ *        updatedAt:
+ *          type: string
+ */
 export const Post = sequelize.define("post", {
   id: {
     type: DataTypes.INTEGER,

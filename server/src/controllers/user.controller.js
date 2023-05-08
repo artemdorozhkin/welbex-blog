@@ -22,6 +22,23 @@ export default class UserController {
         );
       }
 
+      const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+      if (!emailPattern.test(email)) {
+        return next(
+          ApiError.badRequest(
+            "Некорректный email. Email должен быть в формате name@email.com."
+          )
+        );
+      }
+
+      const passwordPattern = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{4,32}$/;
+      if (!passwordPattern.test(password)) {
+        return next(
+          ApiError.badRequest(
+            "Пароль должен состоять из заглавных и прописных букв, должен содержать хотя бы одну цифру и не должен быть меньше 4 и больше 32 символов."
+          )
+        );
+      }
       const candidate = await User.findOne({ where: { email } });
       if (candidate) {
         return next(

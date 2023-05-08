@@ -3,14 +3,14 @@ import config from "./common/config.js";
 import log from "./common/logging.js";
 
 const sequelize = new Sequelize(
-  config.get("MYSQL_DB"),
-  config.get("MYSQL_LOGIN"),
-  config.get("MYSQL_PASSWORD"),
+  config.get("POSTGRES_DB"),
+  config.get("POSTGRES_LOGIN"),
+  config.get("POSTGRES_PASSWORD"),
   {
     logging: (msg) => log.debug("database", msg),
-    dialect: "mysql",
-    host: config.get("MYSQL_HOST"),
-    port: config.get("MYSQL_PORT"),
+    dialect: "postgres",
+    host: config.get("POSTGRES_HOST"),
+    port: config.get("POSTGRES_PORT"),
   }
 );
 

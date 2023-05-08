@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { resolve } from "path";
 import { __dirname } from "../app.js";
 import log from "../common/logging.js";
+import fs from "fs";
 
 function generateFileName(file) {
   const fileName = uuidv4() + ".jpg";
@@ -28,9 +29,9 @@ export default class PostController {
       if (!userId) {
         return next(ApiError.badRequest("user not found"));
       }
-
+      
       if (!message || message.trim().length === 0) {
-        return next(ApiError.badRequest("post message can't be empty"));
+        return next(ApiError.badRequest("Сообщение не может быть пустым"));
       }
 
       const user = await User.findOne({ where: { id: userId } });
@@ -47,9 +48,18 @@ export default class PostController {
     }
   }
 
-  static async getAll(req, res) {
+  static async getAll(req, res, next) {
     try {
-      const posts = await Post.findAll({ include: User });
+      let { limit, page } = req.query;
+      page = +page || 1;
+      limit = +limit || 20;
+      let offset = page * limit - limit;
+      const posts = await Post.findAndCountAll({
+        include: User,
+        order: [["id", "DESC"]],
+        limit,
+        offset,
+      });
       return res.json(posts);
     } catch (error) {
       next(ApiError.badRequest(error.message));
@@ -60,12 +70,6 @@ export default class PostController {
   static async edit(req, res, next) {
     try {
       const { id, message } = req.body;
-      let fileName = "";
-      if (req.files) {
-        const { file } = req.files;
-        fileName = generateFileName(file);
-        saveFile(file, fileName);
-      }
 
       const post = await Post.findOne({ where: { id } });
       if (!post) {
@@ -79,10 +83,10 @@ export default class PostController {
       }
 
       if (!message || message.trim().length === 0) {
-        return next(ApiError.badRequest("post message can't be empty"));
+        return next(ApiError.badRequest("Сообщение не может быть пустым"));
       }
 
-      await post.update({ message, file: fileName });
+      await post.update({ message });
       return res.json(post);
     } catch (error) {
       next(ApiError.badRequest(error.message));
@@ -104,6 +108,15 @@ export default class PostController {
         );
       }
 
+      if (post.file) {
+        fs.rm(resolve(__dirname, "static", post.file), (err) => {
+          if (err) {
+            return log.warn("Ошибка при удалении файла");
+          }
+
+          log.info("Файл успешно удален");
+        });
+      }
       await post.destroy();
       return res.json(post);
     } catch (error) {

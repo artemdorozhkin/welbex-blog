@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
-import AppRouter from "./components/approuter.component";
+import AppRouter from "./components/AppRouter";
 import { Context } from ".";
-import NavBar from "./components/navbar.component";
+import NavBar from "./components/NavBar";
 import { observer } from "mobx-react-lite";
 import { check } from "./http/userApi";
 
