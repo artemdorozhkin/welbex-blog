@@ -1,6 +1,5 @@
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
-import projPackage from "../../package.json" assert { type: "json" };
 import log from "../common/logging.js";
 
 const options = {
@@ -8,7 +7,7 @@ const options = {
     openapi: "3.0.0",
     info: {
       title: "REST API Docs",
-      version: projPackage.version,
+      version: "1.0.0",
     },
     components: {
       securitySchemas: {
