@@ -1,6 +1,6 @@
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
-import projPackage from "../../package.json" assert { type: "json" };
+import projPackage from "../../package.json";
 import log from "../common/logging.js";
 
 const options = {
