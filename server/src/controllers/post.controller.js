@@ -12,6 +12,12 @@ function generateFileName(file) {
 }
 
 function saveFile(file, name) {
+  fs.mkdir(resolve(__dirname, "static"), {recursive:true}, (err) => {
+    if(err) {
+      return log.error(err)
+    }
+    log.info('папка static создана')
+  })
   file.mv(resolve(__dirname, "static", name));
 }
 
