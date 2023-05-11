@@ -1,6 +1,6 @@
 import { $host, $authhost } from ".";
 
-export const getPosts = async (page, limit = 5) => {
+export const getPosts = async (page, limit = 20) => {
   const { data } = await $host.get("api/posts", { params: { page, limit } });
   return data;
 };
