@@ -5,6 +5,7 @@ import { resolve } from "path";
 import { __dirname } from "../app.js";
 import log from "../common/logging.js";
 import fs from "fs";
+import path from "path";
 
 function generateFileName(file) {
   const fileName = uuidv4() + ".jpg";
@@ -12,12 +13,14 @@ function generateFileName(file) {
 }
 
 function saveFile(file, name) {
-  fs.mkdir(resolve(__dirname, "static"), {recursive:true}, (err) => {
-    if(err) {
-      return log.error(err)
-    }
-    log.info('папка static создана')
-  })
+  if (!fs.existsSync(resolve(__dirname, "static"))) {
+    fs.mkdir(resolve(__dirname, "static"), { recursive: true }, (err) => {
+      if (err) {
+        return log.error(err);
+      }
+      log.info("папка static создана");
+    });
+  }
   file.mv(resolve(__dirname, "static", name));
 }
 
@@ -35,7 +38,7 @@ export default class PostController {
       if (!userId) {
         return next(ApiError.badRequest("user not found"));
       }
-      
+
       if (!message || message.trim().length === 0) {
         return next(ApiError.badRequest("Сообщение не может быть пустым"));
       }
